@@ -57,8 +57,19 @@
         }
         .text-gradient {
             background: linear-gradient(135deg, #818cf8, #34d399);
+            background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+        }
+        .mobile-menu-enter {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: max-height 0.25s ease, opacity 0.25s ease;
+        }
+        .mobile-menu-enter.open {
+            max-height: 320px;
+            opacity: 1;
         }
     </style>
 </head>
@@ -71,9 +82,12 @@
                 <div class="flex-shrink-0 font-heading font-bold text-xl tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-emerald-400">
                     VIT-AP AI Seminar
                 </div>
+                <button id="menu-toggle" class="md:hidden inline-flex items-center justify-center rounded-lg border border-slate-700 px-3 py-2 text-slate-200" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-menu">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
                 <div class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-8">
-                        <a href="#about" class="hover:text-primary transition-colors px-3 py-2 text-sm font-medium">About</a>
+                        <a href="#hero" class="hover:text-primary transition-colors px-3 py-2 text-sm font-medium">About</a>
                         <a href="#themes" class="hover:text-primary transition-colors px-3 py-2 text-sm font-medium">Themes</a>
                         <a href="#objectives" class="hover:text-primary transition-colors px-3 py-2 text-sm font-medium">Objectives</a>
                         <a href="#team" class="hover:text-primary transition-colors px-3 py-2 text-sm font-medium">Coordinators</a>
@@ -82,29 +96,39 @@
                     </div>
                 </div>
             </div>
+            <div id="mobile-menu" class="md:hidden mobile-menu-enter border-t border-slate-800/70">
+                <div class="flex flex-col gap-1 py-3">
+                    <a href="#hero" class="px-2 py-2 text-sm font-medium hover:text-primary mobile-link">About</a>
+                    <a href="#themes" class="px-2 py-2 text-sm font-medium hover:text-primary mobile-link">Themes</a>
+                    <a href="#objectives" class="px-2 py-2 text-sm font-medium hover:text-primary mobile-link">Objectives</a>
+                    <a href="#team" class="px-2 py-2 text-sm font-medium hover:text-primary mobile-link">Coordinators</a>
+                    <a href="#contact" class="px-2 py-2 text-sm font-medium hover:text-primary mobile-link">Contact</a>
+                    <a href="#register" class="mt-1 w-full text-center bg-primary hover:bg-indigo-500 text-white px-4 py-2.5 rounded-full text-sm font-semibold transition-all shadow-lg shadow-indigo-500/20 mobile-link">Register Now</a>
+                </div>
+            </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section id="hero" class="relative min-h-screen flex items-center justify-center hero-bg pt-20 overflow-hidden">
+    <section id="hero" class="relative min-h-screen flex items-center justify-center hero-bg pt-24 pb-16 sm:pb-20 overflow-hidden">
         <!-- Abstract glowing orbs -->
         <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-indigo-600/20 rounded-full blur-[100px] -z-10"></div>
         <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-emerald-600/20 rounded-full blur-[100px] -z-10"></div>
         
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center" data-aos="fade-up" data-aos-duration="1000">
-            <span class="inline-block py-1 px-3 rounded-full bg-indigo-500/10 text-indigo-300 text-sm font-semibold tracking-wider mb-6 border border-indigo-500/20">National Level Seminar</span>
-            <h1 class="text-5xl md:text-7xl font-bold font-heading leading-tight mb-8">
+            <span class="inline-block py-2 px-5 sm:px-6 rounded-full bg-indigo-500/10 text-indigo-300 text-lg sm:text-xl md:text-2xl font-semibold tracking-wider mb-6 border border-indigo-500/20">National Level Seminar</span>
+            <h1 class="text-3xl sm:text-5xl md:text-7xl font-bold font-heading leading-tight mb-6 sm:mb-8">
                 Towards Intelligent Systems: <br/>
                 <span class="text-gradient">Deep Learning for Solving Real-World Challenges</span>
             </h1>
-            <p class="mt-4 max-w-2xl mx-auto text-xl text-slate-400 mb-10">
+            <p class="mt-4 max-w-2xl mx-auto text-base sm:text-xl text-slate-400 mb-8 sm:mb-10">
                 Join leading experts, faculty, and scholars to explore the core principles and domain-specific applications of modern AI and deep learning.
             </p>
-            <div class="flex flex-col sm:flex-row justify-center gap-4">
-                <a href="#register" class="bg-white text-darker px-8 py-4 rounded-full text-lg font-bold hover:bg-slate-200 transition-all shadow-[0_0_40px_rgba(255,255,255,0.3)]">
+            <div class="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
+                <a href="#register" class="bg-white text-darker px-6 sm:px-8 py-3.5 sm:py-4 rounded-full text-base sm:text-lg font-bold hover:bg-slate-200 transition-all shadow-[0_0_40px_rgba(255,255,255,0.3)]">
                     Register for Event <i class="fa-solid fa-arrow-right ml-2"></i>
                 </a>
-                <a href="#about" class="px-8 py-4 rounded-full text-lg font-semibold border border-slate-700 hover:bg-slate-800 transition-all">
+                <a href="#themes" class="px-6 sm:px-8 py-3.5 sm:py-4 rounded-full text-base sm:text-lg font-semibold border border-slate-700 hover:bg-slate-800 transition-all">
                     Learn More
                 </a>
             </div>
@@ -112,15 +136,15 @@
     </section>
 
     <!-- Sub-Themes -->
-    <section id="themes" class="py-24 bg-dark relative">
+    <section id="themes" class="py-16 sm:py-24 bg-dark relative">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16" data-aos="fade-up">
                 <h2 class="text-3xl md:text-4xl font-bold font-heading mb-4">Core Sub-Themes</h2>
                 <p class="text-slate-400 max-w-2xl mx-auto">Exploring the profound impact of deep learning across critical industries.</p>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
                 <!-- Theme 1 -->
-                <div class="card-glass p-8 rounded-2xl" data-aos="fade-up" data-aos-delay="100">
+                <div class="card-glass p-6 sm:p-8 rounded-2xl" data-aos="fade-up" data-aos-delay="100">
                     <div class="w-14 h-14 bg-blue-500/20 text-blue-400 rounded-xl flex items-center justify-center text-2xl mb-6">
                         <i class="fa-solid fa-heart-pulse"></i>
                     </div>
@@ -128,7 +152,7 @@
                     <p class="text-slate-400">Deep Learning for Smart Healthcare Applications & Medical Image Analysis.</p>
                 </div>
                 <!-- Theme 2 -->
-                <div class="card-glass p-8 rounded-2xl" data-aos="fade-up" data-aos-delay="200">
+                <div class="card-glass p-6 sm:p-8 rounded-2xl" data-aos="fade-up" data-aos-delay="200">
                     <div class="w-14 h-14 bg-emerald-500/20 text-emerald-400 rounded-xl flex items-center justify-center text-2xl mb-6">
                         <i class="fa-solid fa-leaf"></i>
                     </div>
@@ -136,7 +160,7 @@
                     <p class="text-slate-400">Deep Learning Applications in Precision Agriculture, disease detection, and yield prediction.</p>
                 </div>
                 <!-- Theme 3 -->
-                <div class="card-glass p-8 rounded-2xl" data-aos="fade-up" data-aos-delay="300">
+                <div class="card-glass p-6 sm:p-8 rounded-2xl" data-aos="fade-up" data-aos-delay="300">
                     <div class="w-14 h-14 bg-purple-500/20 text-purple-400 rounded-xl flex items-center justify-center text-2xl mb-6">
                         <i class="fa-solid fa-camera"></i>
                     </div>
@@ -144,7 +168,7 @@
                     <p class="text-slate-400">Deep Learning for Computer Vision, Image Understanding, and industrial quality control.</p>
                 </div>
                 <!-- Theme 4 -->
-                <div class="card-glass p-8 rounded-2xl" data-aos="fade-up" data-aos-delay="400">
+                <div class="card-glass p-6 sm:p-8 rounded-2xl" data-aos="fade-up" data-aos-delay="400">
                     <div class="w-14 h-14 bg-amber-500/20 text-amber-400 rounded-xl flex items-center justify-center text-2xl mb-6">
                         <i class="fa-solid fa-language"></i>
                     </div>
@@ -152,7 +176,7 @@
                     <p class="text-slate-400">Deep Learning for Natural Language Processing, education, and customer service applications.</p>
                 </div>
                 <!-- Theme 5 -->
-                <div class="card-glass p-8 rounded-2xl" data-aos="fade-up" data-aos-delay="500">
+                <div class="card-glass p-6 sm:p-8 rounded-2xl" data-aos="fade-up" data-aos-delay="500">
                     <div class="w-14 h-14 bg-cyan-500/20 text-cyan-400 rounded-xl flex items-center justify-center text-2xl mb-6">
                         <i class="fa-solid fa-microchip"></i>
                     </div>
@@ -164,9 +188,9 @@
     </section>
 
     <!-- Objectives Section -->
-    <section id="objectives" class="py-24 relative border-t border-slate-800">
+    <section id="objectives" class="py-16 sm:py-24 relative border-t border-slate-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 sm:gap-16 items-center">
                 <div data-aos="fade-right">
                     <h2 class="text-3xl md:text-4xl font-bold font-heading mb-6">Seminar Objectives</h2>
                     <p class="text-slate-400 text-lg mb-8 leading-relaxed">
@@ -204,14 +228,14 @@
     </section>
 
     <!-- Coordinators -->
-    <section id="team" class="py-24 bg-dark relative border-t border-slate-800">
+    <section id="team" class="py-16 sm:py-24 bg-dark relative border-t border-slate-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16" data-aos="fade-up">
                 <h2 class="text-3xl md:text-4xl font-bold font-heading mb-4">Faculty Coordinators</h2>
                 <p class="text-slate-400 max-w-2xl mx-auto">Organized by the esteemed faculty from the School of Computer Science and Engineering (SCOPE).</p>
             </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
                 <!-- Profile Card -->
                 <div class="card-glass p-6 rounded-2xl text-center" data-aos="fade-up" data-aos-delay="100">
                     <div class="w-20 h-20 mx-auto rounded-full overflow-hidden mb-4 border border-slate-700">
@@ -258,22 +282,22 @@
     </section>
 
     <!-- Contact & Registration -->
-    <section id="contact" class="py-24 relative">
+    <section id="contact" class="py-16 sm:py-24 relative">
         <div class="absolute inset-0 hero-bg mix-blend-screen opacity-50 z-0"></div>
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10" data-aos="zoom-in">
-            <div class="card-glass p-10 md:p-14 rounded-3xl text-center shadow-2xl border border-indigo-500/30">
-                <h2 class="text-3xl md:text-5xl font-bold font-heading mb-6">Ready to Shape the Future?</h2>
-                <p class="text-slate-300 text-lg mb-10 max-w-2xl mx-auto">
+            <div class="card-glass p-6 sm:p-10 md:p-14 rounded-3xl text-center shadow-2xl border border-indigo-500/30">
+                <h2 class="text-2xl sm:text-3xl md:text-5xl font-bold font-heading mb-6">Ready to Shape the Future?</h2>
+                <p class="text-slate-300 text-base sm:text-lg mb-8 sm:mb-10 max-w-2xl mx-auto">
                     Secure your spot at this premier seminar and explore how deep learning is solving real-world challenges.
                 </p>
                 
                 <div class="flex flex-col md:flex-row justify-center items-center gap-6 mb-12">
-                    <div class="flex items-center text-slate-300 bg-slate-800/50 px-6 py-3 rounded-full">
+                    <div class="flex items-center text-slate-300 bg-slate-800/50 px-4 sm:px-6 py-3 rounded-full break-all text-sm sm:text-base">
                         <i class="fa-solid fa-envelope text-primary mr-3"></i> sheela.j@vitap.ac.in
                     </div>
                 </div>
 
-                <a id="register" href="#" class="inline-block bg-gradient-to-r from-indigo-600 to-emerald-500 text-white px-10 py-5 rounded-full text-xl font-bold hover:shadow-[0_0_40px_rgba(16,185,129,0.4)] transition-all transform hover:-translate-y-1">
+                <a id="register" href="#" class="inline-block bg-gradient-to-r from-indigo-600 to-emerald-500 text-white px-8 sm:px-10 py-4 sm:py-5 rounded-full text-lg sm:text-xl font-bold hover:shadow-[0_0_40px_rgba(16,185,129,0.4)] transition-all transform hover:-translate-y-1">
                     Register Now
                 </a>
             </div>
@@ -303,6 +327,25 @@
                 navbar.classList.remove('shadow-lg');
                 navbar.style.background = 'rgba(15, 23, 42, 0.7)';
             }
+        });
+
+        // Mobile navigation toggle
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        menuToggle.addEventListener('click', () => {
+            const isOpen = mobileMenu.classList.toggle('open');
+            menuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+            menuToggle.innerHTML = isOpen ? '<i class="fa-solid fa-xmark"></i>' : '<i class="fa-solid fa-bars"></i>';
+        });
+
+        mobileLinks.forEach((link) => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('open');
+                menuToggle.setAttribute('aria-expanded', 'false');
+                menuToggle.innerHTML = '<i class="fa-solid fa-bars"></i>';
+            });
         });
     </script>
 </body>
